@@ -1,9 +1,62 @@
 <resources>
     <string name="app_name">ROAVAI Parent</string>
     <string name="app_tagline">AI Learning Companion</string>
+
+    <!-- Common UI states & actions -->
     <string name="common_loading">Loading…</string>
     <string name="common_retry">Retry</string>
-    <string name="common_empty">No data available</string>
-    <string name="common_error">Something went wrong. Please try again.</string>
-    <string name="common_offline">You are offline. Showing cached data.</string>
+    <string name="common_empty_title">No data available</string>
+    <string name="common_empty_message">Information will appear here once available.</string>
+    <string name="common_error_title">Something went wrong</string>
+    <string name="common_error_message">Please check your connection and try again.</string>
+    <string name="common_offline_banner">You are offline. Showing cached data.</string>
+    <string name="common_view_all">View All</string>
+    <string name="common_view_details">View details</string>
+    <string name="common_save">Save</string>
+    <string name="common_cancel">Cancel</string>
+
+    <!-- Navigation tabs -->
+    <string name="nav_home">Home</string>
+    <string name="nav_progress">Progress</string>
+    <string name="nav_activity">Activity</string>
+    <string name="nav_robot">Robot</string>
+    <string name="nav_profile">Profile</string>
+
+    <!-- Demo Controls -->
+    <string name="demo_controls_title">Demo Controls</string>
+    <string name="demo_state_normal">Normal</string>
+    <string name="demo_state_loading">Loading</string>
+    <string name="demo_state_empty">Empty</string>
+    <string name="demo_state_error">Error</string>
+    <string name="demo_state_offline">Offline</string>
+    <string name="demo_robot_disconnected">Robot disconnected</string>
+    <string name="demo_close">Close</string>
+
+    <!-- Periods -->
+    <string name="period_this_week">This Week</string>
+    <string name="period_last_week">Last Week</string>
+    <string name="period_this_month">This Month</string>
+    <string name="period_last_month">Last Month</string>
+
+    <!-- Robot status -->
+    <string name="robot_connected">Connected</string>
+    <string name="robot_disconnected">Disconnected</string>
+    <string name="robot_battery_format">Battery: %1$d%%</string>
+    <string name="robot_wifi_connected">Wi-Fi Connected</string>
+    <string name="robot_wifi_disconnected">Wi-Fi Disconnected</string>
+    <string name="robot_last_active_format">Last active: %1$s</string>
+    <string name="robot_reconnect">Reconnect</string>
+    <string name="robot_unpair">Unpair</string>
+
+    <!-- Child header -->
+    <string name="child_header_avatar_cd">Child profile avatar</string>
+    <string name="child_header_grade_board_format">%1$s • %2$s</string>
+
+    <!-- Accessibility descriptions -->
+    <string name="cd_menu_icon">Menu</string>
+    <string name="cd_notifications_icon">Notifications</string>
+    <string name="cd_profile_avatar">Parent profile</string>
+    <string name="cd_chart_summary">Bar chart showing daily values</string>
+    <string name="cd_stat_card">Statistic card</string>
+    <string name="cd_achievement_icon">Achievement badge</string>
 </resources>
