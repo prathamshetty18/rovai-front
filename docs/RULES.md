@@ -29,3 +29,4 @@ These rules apply to every task in this repo.
 
 ## Finishing
 18. When done: list the files changed, list the exact commands to verify, then STOP.
+19. Never kill processes, delete files, or change anything outside C:\rovai-front without asking me first. Never start the emulator unless I ask.

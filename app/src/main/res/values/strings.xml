@@ -59,4 +59,25 @@
     <string name="cd_chart_summary">Bar chart showing daily values</string>
     <string name="cd_stat_card">Statistic card</string>
     <string name="cd_achievement_icon">Achievement badge</string>
+
+    <!-- Home screen strings -->
+    <string name="home_welcome_format">Welcome, %1$s</string>
+    <string name="home_view_profile">View Profile</string>
+    <string name="home_motivational_message">Keep going, %1$s! You are doing great today.</string>
+    <string name="home_today_learning_title">Today\'s Learning</string>
+    <string name="home_learning_time_label">Learning Time</string>
+    <string name="home_learning_time_format">%1$d min</string>
+    <string name="home_daily_goal_label">Daily Goal</string>
+    <string name="home_daily_goal_format">%1$d / %2$d min</string>
+    <string name="home_topics_covered_label">Topics Covered</string>
+    <string name="home_subjects_covered_label">Subjects</string>
+    <string name="home_questions_label">Questions</string>
+    <string name="home_questions_detail_format">%1$d answered (%2$d correct, %3$d incorrect)</string>
+    <string name="home_overall_progress_label">Overall Progress</string>
+    <string name="home_recent_activity_title">Recent Activity</string>
+    <string name="home_subject_progress_title">Subject Progress</string>
+    <string name="home_upcoming_goals_title">Upcoming Goals</string>
+    <string name="home_add_goal">Add goal</string>
+    <string name="home_achievements_title">Achievements</string>
+    <string name="home_robot_image_cd">ROAVAI robot companion</string>
 </resources>

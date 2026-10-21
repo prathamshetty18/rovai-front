@@ -14,6 +14,9 @@ import com.roavai.parent.data.fake.DemoSettings
 import com.roavai.parent.ui.components.DemoControlsBottomSheet
 import com.roavai.parent.ui.components.ScreenScaffold
 
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.roavai.parent.ui.home.HomeScreen
+
 @Composable
 fun RoavaiNavHost(
     demoSettings: DemoSettings,
@@ -49,6 +52,28 @@ fun RoavaiNavHost(
         startDestination = NavRoutes.HOME,
         modifier = modifier
     ) {
+        composable(NavRoutes.HOME) {
+            HomeScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = { targetRoute ->
+                    if (targetRoute == NavRoutes.HOME) {
+                        // Already on home
+                    } else if (targetRoute in NavRoutes.TAB_ROUTES) {
+                        navController.navigate(targetRoute) {
+                            popUpTo(NavRoutes.HOME) { saveState = true }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    } else {
+                        navController.navigate(targetRoute) {
+                            launchSingleTop = true
+                        }
+                    }
+                },
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
         val allRoutes = listOf(
             NavRoutes.SPLASH to "Splash",
             NavRoutes.ROBOT_SETUP to "Robot Setup",
@@ -59,7 +84,6 @@ fun RoavaiNavHost(
             NavRoutes.FORGOT_OTP to "Forgot Password (OTP)",
             NavRoutes.FORGOT_NEW_PASSWORD to "Forgot Password (New Password)",
             NavRoutes.ADD_CHILD to "Add Child",
-            NavRoutes.HOME to "Home",
             NavRoutes.PROGRESS to "Progress",
             NavRoutes.ACTIVITY to "Activity",
             NavRoutes.ROBOT to "Robot",

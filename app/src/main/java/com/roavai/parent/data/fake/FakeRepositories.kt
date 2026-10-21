@@ -72,7 +72,7 @@ class FakeAuthRepository @Inject constructor(
 
     override suspend fun currentParent(): AppResult<Parent?> {
         return demoSettings.applyDemoState(
-            emptyValue = { null }
+            emptyValue = { sampleData.currentParent }
         ) {
             AppResult.Success(sampleData.currentParent)
         }
