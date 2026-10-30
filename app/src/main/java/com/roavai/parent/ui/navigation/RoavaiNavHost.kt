@@ -10,16 +10,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.roavai.parent.data.fake.DemoSettings
+import com.roavai.parent.domain.repository.NotificationsRepository
+import com.roavai.parent.ui.achievements.AchievementsScreen
+import com.roavai.parent.ui.activity.ActivityDetailScreen
+import com.roavai.parent.ui.activity.ActivityScreen
 import com.roavai.parent.ui.components.DemoControlsBottomSheet
 import com.roavai.parent.ui.components.ScreenScaffold
-
-import androidx.hilt.navigation.compose.hiltViewModel
+import com.roavai.parent.ui.goals.GoalsScreen
 import com.roavai.parent.ui.home.HomeScreen
+import com.roavai.parent.ui.notifications.NotificationsScreen
+import com.roavai.parent.ui.profile.ProfileScreen
+import com.roavai.parent.ui.progress.ProgressScreen
+import com.roavai.parent.ui.progress.detail.*
+import com.roavai.parent.ui.robot.RobotScreen
+import com.roavai.parent.ui.robot.RobotSetupScreen
 
 @Composable
 fun RoavaiNavHost(
     demoSettings: DemoSettings,
+    notificationsRepository: NotificationsRepository,
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
@@ -27,6 +39,7 @@ fun RoavaiNavHost(
     val currentRoute = navBackStackEntry?.destination?.route
 
     var showDemoControls by remember { mutableStateOf(false) }
+    val liveUnreadCount by notificationsRepository.unreadCountFlow.collectAsStateWithLifecycle()
 
     val showBottomBar = currentRoute in setOf(
         NavRoutes.HOME,
@@ -47,6 +60,22 @@ fun RoavaiNavHost(
         NavRoutes.ACHIEVEMENTS
     )
 
+    val onNavigate: (String) -> Unit = { targetRoute ->
+        if (targetRoute == currentRoute) {
+            // Already on target route
+        } else if (targetRoute in NavRoutes.TAB_ROUTES) {
+            navController.navigate(targetRoute) {
+                popUpTo(NavRoutes.HOME) { saveState = true }
+                launchSingleTop = true
+                restoreState = true
+            }
+        } else {
+            navController.navigate(targetRoute) {
+                launchSingleTop = true
+            }
+        }
+    }
+
     NavHost(
         navController = navController,
         startDestination = NavRoutes.HOME,
@@ -55,71 +84,172 @@ fun RoavaiNavHost(
         composable(NavRoutes.HOME) {
             HomeScreen(
                 viewModel = hiltViewModel(),
-                onNavigateToRoute = { targetRoute ->
-                    if (targetRoute == NavRoutes.HOME) {
-                        // Already on home
-                    } else if (targetRoute in NavRoutes.TAB_ROUTES) {
-                        navController.navigate(targetRoute) {
-                            popUpTo(NavRoutes.HOME) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
-                    } else {
-                        navController.navigate(targetRoute) {
-                            launchSingleTop = true
-                        }
-                    }
-                },
+                onNavigateToRoute = onNavigate,
                 onOpenDemoControls = { showDemoControls = true }
             )
         }
 
-        val allRoutes = listOf(
+        composable(NavRoutes.ACTIVITY) {
+            ActivityScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.ACTIVITY_DETAIL) {
+            ActivityDetailScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS) {
+            ProgressScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_OVERALL) {
+            ProgressOverallScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_LEARNING_TIME) {
+            ProgressLearningTimeScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_SUBJECTS) {
+            ProgressSubjectsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_SUBJECT_DETAIL) {
+            ProgressSubjectDetailScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_TOPICS) {
+            ProgressTopicsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_TESTS) {
+            ProgressTestsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_COMPARISONS) {
+            ProgressComparisonsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROGRESS_CREDITS) {
+            ProgressCreditsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.GOALS_EDIT) {
+            GoalsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.NOTIFICATIONS) {
+            NotificationsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.ACHIEVEMENTS) {
+            AchievementsScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.ROBOT) {
+            RobotScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.ROBOT_SETUP) {
+            RobotSetupScreen(
+                viewModel = hiltViewModel(),
+                onNavigateBack = { navController.popBackStack() },
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        composable(NavRoutes.PROFILE) {
+            ProfileScreen(
+                viewModel = hiltViewModel(),
+                onNavigateToRoute = onNavigate,
+                onOpenDemoControls = { showDemoControls = true }
+            )
+        }
+
+        // Placeholders for remaining unbuilt routes
+        val remainingPlaceholderRoutes = listOf(
             NavRoutes.SPLASH to "Splash",
-            NavRoutes.ROBOT_SETUP to "Robot Setup",
             NavRoutes.ONBOARDING to "Onboarding",
             NavRoutes.SIGNUP to "Sign Up",
             NavRoutes.LOGIN to "Login",
             NavRoutes.FORGOT_EMAIL to "Forgot Password (Email)",
             NavRoutes.FORGOT_OTP to "Forgot Password (OTP)",
             NavRoutes.FORGOT_NEW_PASSWORD to "Forgot Password (New Password)",
-            NavRoutes.ADD_CHILD to "Add Child",
-            NavRoutes.PROGRESS to "Progress",
-            NavRoutes.ACTIVITY to "Activity",
-            NavRoutes.ROBOT to "Robot",
-            NavRoutes.PROFILE to "Profile",
-            NavRoutes.PROGRESS_OVERALL to "Overall Progress Details",
-            NavRoutes.PROGRESS_LEARNING_TIME to "Learning Time Details",
-            NavRoutes.PROGRESS_SUBJECTS to "Subject Progress Details",
-            NavRoutes.PROGRESS_SUBJECT_DETAIL to "Subject Topics Details",
-            NavRoutes.PROGRESS_TOPICS to "Topics Mastery Details",
-            NavRoutes.PROGRESS_TESTS to "Test Performance Details",
-            NavRoutes.PROGRESS_COMPARISONS to "Comparisons Details",
-            NavRoutes.PROGRESS_CREDITS to "Credits Details",
-            NavRoutes.ACTIVITY_DETAIL to "Activity Details",
-            NavRoutes.GOALS_EDIT to "Add/Edit Goal",
-            NavRoutes.NOTIFICATIONS to "Notifications",
-            NavRoutes.ACHIEVEMENTS to "Achievements"
+            NavRoutes.ADD_CHILD to "Add Child"
         )
 
-        allRoutes.forEach { (route, screenName) ->
+        remainingPlaceholderRoutes.forEach { (route, screenName) ->
             composable(route) {
                 ScreenScaffold(
                     title = screenName,
+                    unreadNotifications = liveUnreadCount,
                     onTitleLongClick = { showDemoControls = true },
-                    onNotificationsClick = { navController.navigate(NavRoutes.NOTIFICATIONS) },
-                    onProfileClick = { navController.navigate(NavRoutes.PROFILE) },
+                    onNotificationsClick = { onNavigate(NavRoutes.NOTIFICATIONS) },
+                    onProfileClick = { onNavigate(NavRoutes.PROFILE) },
                     bottomBar = {
                         if (showBottomBar) {
                             RoavaiBottomBar(
                                 currentRoute = currentRoute,
-                                onNavigateToRoute = { targetRoute ->
-                                    navController.navigate(targetRoute) {
-                                        popUpTo(NavRoutes.HOME) { saveState = true }
-                                        launchSingleTop = true
-                                        restoreState = true
-                                    }
-                                }
+                                onNavigateToRoute = onNavigate
                             )
                         }
                     }

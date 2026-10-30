@@ -29,12 +29,13 @@ class SampleData @Inject constructor(
 
     // In-memory states
     var isLoggedIn: Boolean = false
-    var currentParent: Parent? = Parent(
+    val demoParent: Parent = Parent(
         id = "p1",
         fullName = "Meera D'Souza",
         email = "parent@example.com",
         mobile = "+91 90000 00000"
     )
+    var currentParent: Parent? = demoParent
 
     var currentChild: Child = Child(
         id = "c1",
@@ -444,11 +445,18 @@ class SampleData @Inject constructor(
     val notifications: List<AppNotification>
         get() = _notifications.toList()
 
+    val unreadNotificationsCount: Int
+        get() = _notifications.count { !it.read }
+
+    private val _unreadCountFlow = kotlinx.coroutines.flow.MutableStateFlow(unreadNotificationsCount)
+    val unreadCountFlow: kotlinx.coroutines.flow.StateFlow<Int> = _unreadCountFlow
+
     fun markNotificationRead(id: String) {
         val index = _notifications.indexOfFirst { it.id == id }
         if (index != -1) {
             val item = _notifications[index]
             _notifications[index] = item.copy(read = true)
+            _unreadCountFlow.value = unreadNotificationsCount
         }
     }
 
@@ -456,10 +464,8 @@ class SampleData @Inject constructor(
         for (i in _notifications.indices) {
             _notifications[i] = _notifications[i].copy(read = true)
         }
+        _unreadCountFlow.value = 0
     }
-
-    val unreadNotificationsCount: Int
-        get() = _notifications.count { !it.read }
 
     fun learningTimeFor(period: Period): LearningTime {
         return when (period) {

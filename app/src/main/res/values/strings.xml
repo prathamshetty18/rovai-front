@@ -71,6 +71,7 @@
     <string name="home_daily_goal_format">%1$d / %2$d min</string>
     <string name="home_topics_covered_label">Topics Covered</string>
     <string name="home_subjects_covered_label">Subjects</string>
+    <string name="home_subjects_covered_format">Subjects: %1$s</string>
     <string name="home_questions_label">Questions</string>
     <string name="home_questions_detail_format">%1$d answered (%2$d correct, %3$d incorrect)</string>
     <string name="home_overall_progress_label">Overall Progress</string>
@@ -80,4 +81,170 @@
     <string name="home_add_goal">Add goal</string>
     <string name="home_achievements_title">Achievements</string>
     <string name="home_robot_image_cd">ROAVAI robot companion</string>
+
+    <!-- Goals screen (spec 7.13) -->
+    <string name="goals_title">Goals</string>
+    <string name="goals_daily_title">Daily Learning Goal</string>
+    <string name="goals_daily_subtitle">Set target study duration per day (5–480 min)</string>
+    <string name="goals_daily_minutes_format">%1$d minutes</string>
+    <string name="goals_save_daily_goal">Update Daily Goal</string>
+    <string name="goals_upcoming_title">Upcoming Goals</string>
+    <string name="goals_add_goal_button">Add New Goal</string>
+    <string name="goals_add_dialog_title">Add Learning Goal</string>
+    <string name="goals_edit_dialog_title">Edit Learning Goal</string>
+    <string name="goals_field_title">Activity Name</string>
+    <string name="goals_field_title_hint">e.g., Practice Algebra</string>
+    <string name="goals_field_subject">Subject</string>
+    <string name="goals_field_topic">Topic (Optional)</string>
+    <string name="goals_field_topic_hint">e.g., Quadratic Equations</string>
+    <string name="goals_field_date">Target Date</string>
+    <string name="goals_field_time">Target Time (Optional)</string>
+    <string name="goals_save">Save Goal</string>
+    <string name="goals_error_title_empty">Please enter an activity name</string>
+    <string name="goals_error_past_date">Date cannot be in the past</string>
+    <string name="goals_delete_title">Delete Goal</string>
+    <string name="goals_delete_message">Are you sure you want to delete \"%1$s\"?</string>
+    <string name="goals_delete_confirm">Delete</string>
+    <string name="goals_empty_title">No goals yet</string>
+    <string name="goals_empty_message">Create goals to help your child build consistent study habits.</string>
+    <string name="goals_edit_action">Edit</string>
+    <string name="goals_delete_action">Delete</string>
+
+    <!-- Notifications screen (spec 7.14) -->
+    <string name="notifications_title">Notifications</string>
+    <string name="notifications_mark_all_read">Mark all as read</string>
+    <string name="notifications_empty_title">No notifications</string>
+    <string name="notifications_empty_message">You are all caught up! New updates will appear here.</string>
+
+    <!-- Achievements screen (spec 7.8 & SAMPLE_DATA.md section 13) -->
+    <string name="achievements_screen_title">Achievements</string>
+    <string name="achievements_empty_title">No achievements yet</string>
+    <string name="achievements_empty_message">Badges and milestones will appear as your child learns.</string>
+
+    <!-- Robot tab (spec 7.15) -->
+    <string name="robot_tab_title">Robot Companion</string>
+    <string name="robot_tab_description">Manage ROAVAI robot pairing and status</string>
+    <string name="robot_status_header">Robot Status</string>
+    <string name="robot_firmware_format">Firmware: %1$s</string>
+    <string name="robot_unpair_confirm_title">Unpair Robot</string>
+    <string name="robot_unpair_confirm_message">Are you sure you want to unpair this robot? Your child won\'t be able to connect until it is paired again.</string>
+    <string name="robot_unpair_confirm_button">Unpair</string>
+    <string name="robot_empty_title">No robot connected</string>
+    <string name="robot_empty_message">Connect your child\'s ROAVAI robot companion to start learning.</string>
+    <string name="robot_connect_button">Connect robot</string>
+    <string name="robot_setup_screen_title">Robot Setup</string>
+    <string name="robot_setup_instruction">Enter the 8-character pairing code displayed on the robot\'s screen.</string>
+    <string name="robot_setup_code_hint">e.g., WINI2026</string>
+    <string name="robot_setup_pair_button">Pair Robot</string>
+    <string name="robot_setup_success_message">Robot connected successfully!</string>
+    <string name="robot_setup_error_expired">This code has expired. Restart your robot to get a new one.</string>
+    <string name="robot_setup_error_used">This code has already been used.</string>
+    <string name="robot_setup_error_not_found">Code not found. Check the code on your robot.</string>
+
+    <!-- Profile tab (spec 7.16) -->
+    <string name="profile_screen_title">Profile</string>
+    <string name="profile_screen_description">Account, child details, and privacy settings</string>
+    <string name="profile_parent_section">Parent Profile</string>
+    <string name="profile_child_section">Child Profile</string>
+    <string name="profile_label_name">Name</string>
+    <string name="profile_label_email">Email</string>
+    <string name="profile_label_mobile">Mobile</string>
+    <string name="profile_label_grade">Grade</string>
+    <string name="profile_label_board">Curriculum / Board</string>
+    <string name="profile_label_daily_goal">Daily Goal</string>
+    <string name="profile_privacy_section">Privacy &amp; Consents</string>
+    <string name="profile_consent_voice">Voice recordings and processing</string>
+    <string name="profile_consent_expression">Expression and emotion cues</string>
+    <string name="profile_consent_reasoning">Store AI tutor reasoning steps</string>
+    <string name="profile_consent_training">Use anonymised data for model training</string>
+    <string name="profile_data_management_section">Data Management</string>
+    <string name="profile_export_data_button">Export my child\'s data</string>
+    <string name="profile_export_dialog_title">Export Data</string>
+    <string name="profile_export_dialog_message">A copy of all learning activities, tests, and progress will be compiled for download.</string>
+    <string name="profile_export_confirm_button">Export</string>
+    <string name="profile_export_success_message">Data export requested. You will receive an email shortly.</string>
+    <string name="profile_delete_data_button">Delete child data</string>
+    <string name="profile_delete_dialog_title">Delete Child Data</string>
+    <string name="profile_delete_dialog_message">Are you sure you want to delete your child\'s data? This action is permanent and cannot be undone.</string>
+    <string name="profile_delete_confirm_button">Delete Data</string>
+    <string name="profile_delete_success_message">Child data deletion request submitted.</string>
+    <string name="profile_logout_button">Log Out</string>
+    <string name="profile_logout_dialog_title">Log Out</string>
+    <string name="profile_logout_dialog_message">Are you sure you want to log out of your ROAVAI account?</string>
+    <string name="profile_demo_controls_button">Open Demo Controls</string>
+
+    <!-- Activity screen (spec 7.11, 7.12) -->
+    <string name="activity_title">Activity</string>
+    <string name="activity_description">Track your child\'s learning activities.</string>
+    <string name="activity_filter_today">Today</string>
+    <string name="activity_filter_this_week">This Week</string>
+    <string name="activity_filter_this_month">This Month</string>
+    <string name="activity_filter_all_time">All Time</string>
+    <string name="activity_filter_all_subjects">All Subjects</string>
+    <string name="activity_group_today">Today</string>
+    <string name="activity_group_yesterday">Yesterday</string>
+    <string name="activity_empty_title">No activities yet</string>
+    <string name="activity_empty_message">Your child\'s learning activities will appear here.</string>
+    <string name="activity_offline_message">Activity data cannot be updated right now</string>
+    <string name="activity_detail_title">Activity Details</string>
+    <string name="activity_field_title">Title</string>
+    <string name="activity_field_subject">Subject</string>
+    <string name="activity_field_topic">Topic</string>
+    <string name="activity_field_summary">What the child did</string>
+    <string name="activity_field_type">Type</string>
+    <string name="activity_field_datetime">Date &amp; Time</string>
+    <string name="activity_field_status">Status</string>
+
+    <!-- Progress hub (spec 7.9) -->
+    <string name="progress_title">Progress</string>
+    <string name="progress_description">Track child\'s learning progress</string>
+    <string name="progress_card_overall">Overall Progress</string>
+    <string name="progress_card_learning_time">Learning Time</string>
+    <string name="progress_card_subject">Subject Progress</string>
+    <string name="progress_card_topics">Topics Mastery</string>
+    <string name="progress_card_tests">Test Performance</string>
+    <string name="progress_card_comparisons">Comparisons</string>
+    <string name="progress_card_credits">Credits</string>
+    <string name="progress_credits_banner_format">Earned %1$d credits! Keep up the great work!</string>
+    <string name="progress_credits_total_format">%1$d credits</string>
+
+    <!-- Progress detail screens (spec 7.10) -->
+    <string name="progress_overall_title">Overall Progress</string>
+    <string name="progress_overall_status_label">Current Status</string>
+    <string name="progress_overall_completed">Completed activities</string>
+    <string name="progress_overall_in_progress">Activities in progress</string>
+    <string name="progress_overall_chart_title">Progress Trend</string>
+
+    <string name="progress_learning_time_title">Learning Time</string>
+    <string name="progress_learning_time_total">Total Learning Time</string>
+    <string name="progress_learning_time_daily_goal">Daily Goal: %1$d min</string>
+    <string name="progress_learning_time_chart_title">Daily Learning Time</string>
+
+    <string name="progress_subjects_title">Subject Progress</string>
+    <string name="progress_subjects_completed_count">%1$d completed</string>
+    <string name="progress_subjects_practice_count">%1$d need practice</string>
+    <string name="progress_subject_detail_title">%1$s Topics</string>
+
+    <string name="progress_topics_title">Topics Mastery</string>
+    <string name="progress_topics_status_completed">Completed</string>
+    <string name="progress_topics_status_learning">Currently learning</string>
+    <string name="progress_topics_status_practice">Needs more practice</string>
+
+    <string name="progress_tests_title">Test Performance</string>
+    <string name="progress_tests_score_format">%1$d / %2$d (%3$d%%)</string>
+    <string name="progress_tests_breakdown_format">%1$d correct, %2$d incorrect</string>
+
+    <string name="progress_comparisons_title">Comparisons</string>
+    <string name="progress_comparisons_current">Current</string>
+    <string name="progress_comparisons_previous">Previous</string>
+    <string name="progress_comparisons_change">Change</string>
+    <string name="progress_comparisons_learning_time">Learning Time</string>
+    <string name="progress_comparisons_overall">Overall Progress</string>
+    <string name="progress_comparisons_test_average">Test Average</string>
+    <string name="progress_comparisons_subjects">Subjects</string>
+
+    <string name="progress_credits_title">Credits</string>
+    <string name="progress_credits_balance_title">Total Credits Earned</string>
+    <string name="progress_credits_history_title">Credits History</string>
+    <string name="progress_credits_earned_format">+%1$d credits</string>
 </resources>

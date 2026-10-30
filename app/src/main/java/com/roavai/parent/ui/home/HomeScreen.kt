@@ -37,9 +37,24 @@ fun HomeScreen(
     modifier: Modifier = Modifier
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val liveUnreadCount by viewModel.unreadCount.collectAsStateWithLifecycle()
+
+    val lifecycleOwner = androidx.lifecycle.compose.LocalLifecycleOwner.current
+    DisposableEffect(lifecycleOwner) {
+        val observer = androidx.lifecycle.LifecycleEventObserver { _, event ->
+            if (event == androidx.lifecycle.Lifecycle.Event.ON_RESUME) {
+                viewModel.refresh()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
 
     HomeScreenContent(
         uiState = uiState,
+        unreadNotifications = liveUnreadCount,
         onRetry = { viewModel.retry() },
         onNavigateToRoute = onNavigateToRoute,
         onOpenDemoControls = onOpenDemoControls,
@@ -50,20 +65,24 @@ fun HomeScreen(
 @Composable
 fun HomeScreenContent(
     uiState: UiState<HomeUiData>,
+    unreadNotifications: Int,
     onRetry: () -> Unit,
     onNavigateToRoute: (String) -> Unit,
     onOpenDemoControls: () -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val successData = (uiState as? UiState.Success)?.data
-    val parentName = successData?.parentName ?: "Meera"
-    val childName = successData?.homeData?.child?.name ?: "Aarav D'Souza"
-    val unreadCount = successData?.homeData?.unreadNotifications ?: 0
+    val currentData = when (uiState) {
+        is UiState.Success -> uiState.data
+        is UiState.Offline -> uiState.cached as? HomeUiData
+        else -> null
+    }
+    val parentName = currentData?.parentName ?: "Meera"
+    val childName = currentData?.homeData?.child?.name ?: "Aarav D'Souza"
 
     ScreenScaffold(
         title = stringResource(id = R.string.home_welcome_format, parentName),
         description = childName,
-        unreadNotifications = unreadCount,
+        unreadNotifications = unreadNotifications,
         onMenuClick = {},
         onNotificationsClick = { onNavigateToRoute(NavRoutes.NOTIFICATIONS) },
         onProfileClick = { onNavigateToRoute(NavRoutes.PROFILE) },
@@ -249,7 +268,7 @@ fun HomeSuccessBody(
 
                 // Subjects covered
                 Text(
-                    text = stringResource(id = R.string.home_subjects_covered_label) + ": " + today.subjects.joinToString(", "),
+                    text = stringResource(id = R.string.home_subjects_covered_format, today.subjects.joinToString(", ")),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -420,6 +439,7 @@ fun HomeScreenPreview() {
     RoavaiTheme {
         HomeScreenContent(
             uiState = UiState.Success(HomeUiData("Meera", homeData)),
+            unreadNotifications = 3,
             onRetry = {},
             onNavigateToRoute = {},
             onOpenDemoControls = {}

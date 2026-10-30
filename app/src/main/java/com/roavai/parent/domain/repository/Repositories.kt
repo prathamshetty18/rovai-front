@@ -67,4 +67,6 @@ interface NotificationsRepository {
     suspend fun markRead(id: String): AppResult<Unit>
     suspend fun markAllRead(): AppResult<Unit>
     suspend fun unreadCount(): AppResult<Int>
+    val unreadCountFlow: kotlinx.coroutines.flow.StateFlow<Int>
+        get() = kotlinx.coroutines.flow.MutableStateFlow(0)
 }

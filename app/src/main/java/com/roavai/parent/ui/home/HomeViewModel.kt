@@ -8,6 +8,7 @@ import com.roavai.parent.data.fake.DemoSettings
 import com.roavai.parent.domain.model.HomeData
 import com.roavai.parent.domain.repository.AuthRepository
 import com.roavai.parent.domain.repository.HomeRepository
+import com.roavai.parent.domain.repository.NotificationsRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -26,8 +27,11 @@ data class HomeUiData(
 class HomeViewModel @Inject constructor(
     private val homeRepository: HomeRepository,
     private val authRepository: AuthRepository,
+    private val notificationsRepository: NotificationsRepository,
     private val demoSettings: DemoSettings
 ) : ViewModel() {
+
+    val unreadCount: StateFlow<Int> = notificationsRepository.unreadCountFlow
 
     private val _uiState = MutableStateFlow<UiState<HomeUiData>>(UiState.Loading)
     val uiState: StateFlow<UiState<HomeUiData>> = _uiState.asStateFlow()
@@ -44,6 +48,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun refresh() {
+        viewModelScope.launch {
+            loadHome()
+        }
+    }
+
     fun retry() {
         viewModelScope.launch {
             loadHome()
@@ -55,7 +65,10 @@ class HomeViewModel @Inject constructor(
 
         val parentResult = authRepository.currentParent()
         val parentName = when (parentResult) {
-            is AppResult.Success -> parentResult.data?.fullName ?: "Meera"
+            is AppResult.Success -> {
+                val fullName = parentResult.data?.fullName ?: "Meera"
+                fullName.split(" ").firstOrNull() ?: "Meera"
+            }
             else -> "Meera"
         }
 

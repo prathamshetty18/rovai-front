@@ -7,6 +7,12 @@ import java.time.LocalDate
 import java.time.LocalTime
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 
 @Singleton
 class FakeAuthRepository @Inject constructor(
@@ -72,9 +78,9 @@ class FakeAuthRepository @Inject constructor(
 
     override suspend fun currentParent(): AppResult<Parent?> {
         return demoSettings.applyDemoState(
-            emptyValue = { sampleData.currentParent }
+            emptyValue = { sampleData.demoParent }
         ) {
-            AppResult.Success(sampleData.currentParent)
+            AppResult.Success(sampleData.currentParent ?: sampleData.demoParent)
         }
     }
 
@@ -425,6 +431,17 @@ class FakeNotificationsRepository @Inject constructor(
     private val sampleData: SampleData,
     private val demoSettings: DemoSettings
 ) : NotificationsRepository {
+
+    override val unreadCountFlow: StateFlow<Int> = combine(
+        sampleData.unreadCountFlow,
+        demoSettings.state
+    ) { count, state ->
+        if (state == DemoState.EMPTY) 0 else count
+    }.stateIn(
+        scope = CoroutineScope(Dispatchers.Default),
+        started = SharingStarted.Eagerly,
+        initialValue = sampleData.unreadNotificationsCount
+    )
 
     override suspend fun notifications(): AppResult<List<AppNotification>> {
         return demoSettings.applyDemoState(
