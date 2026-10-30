@@ -257,4 +257,91 @@
     <string name="progress_credits_balance_title">Total Credits Earned</string>
     <string name="progress_credits_history_title">Credits History</string>
     <string name="progress_credits_earned_format">+%1$d credits</string>
+
+    <!-- Start & Auth Flow (spec 7.1 to 7.7) -->
+    <!-- Splash (spec 7.1) -->
+    <string name="splash_tagline">Your child\'s learning companion</string>
+
+    <!-- Robot Setup additions (spec 7.2) -->
+    <string name="robot_setup_main_title">Connect your ROAVAI robot</string>
+    <string name="robot_setup_connect_button">Connect</string>
+    <string name="robot_setup_connecting_message">Connecting to robot…</string>
+    <string name="robot_setup_connected_success">Robot connected</string>
+    <string name="robot_setup_continue_button">Continue</string>
+    <string name="robot_setup_alt_note">Bluetooth and QR setup are coming soon</string>
+
+    <!-- Onboarding (spec 7.3) -->
+    <string name="onboarding_p1_title">Meet ROAVAI</string>
+    <string name="onboarding_p1_message">Meet your child\'s AI learning companion.</string>
+    <string name="onboarding_p1_content">Interactive learning, tailored guidance, and friendly support that encourages curiosity every day.</string>
+    <string name="onboarding_p2_title">Learn, Explore &amp; Grow</string>
+    <string name="onboarding_p2_message">Learning that feels like play.</string>
+    <string name="onboarding_p2_content">Interactive questions, hands-on educational activities, and personalized practice across school subjects.</string>
+    <string name="onboarding_p3_title">Stay Connected</string>
+    <string name="onboarding_p3_message">See how your child learns and grows.</string>
+    <string name="onboarding_p3_content">Track daily learning activities, celebrate milestones and achievements, and monitor robot status.</string>
+    <string name="onboarding_btn_next">Next</string>
+    <string name="onboarding_btn_skip">Skip</string>
+    <string name="onboarding_btn_get_started">Get Started</string>
+    <string name="onboarding_already_have_account">Already have an account? Log in</string>
+
+    <!-- Sign Up (spec 7.4) -->
+    <string name="signup_title">Sign Up</string>
+    <string name="signup_subtitle">Create a parent account to get started</string>
+    <string name="signup_field_name">Full Name</string>
+    <string name="signup_field_email">Email Address</string>
+    <string name="signup_field_password">Password</string>
+    <string name="signup_field_confirm_password">Confirm Password</string>
+    <string name="signup_field_mobile">Mobile Number (Optional)</string>
+    <string name="signup_btn_submit">Sign Up</string>
+    <string name="signup_error_name_required">Please enter your full name</string>
+    <string name="signup_error_email_required">Please enter your email address</string>
+    <string name="signup_error_email_invalid">Please enter a valid email address</string>
+    <string name="signup_error_email_taken">Email already registered</string>
+    <string name="signup_error_password_length">Password must be at least 8 characters</string>
+    <string name="signup_error_password_match">Passwords do not match</string>
+    <string name="signup_success_created">Account created</string>
+    <string name="signup_to_login_prompt">Already have an account? Log in</string>
+
+    <!-- Login (spec 7.5) -->
+    <string name="login_title">Log In</string>
+    <string name="login_subtitle">Welcome back! Please enter your details.</string>
+    <string name="login_field_email">Email Address</string>
+    <string name="login_field_password">Password</string>
+    <string name="login_btn_submit">Log In</string>
+    <string name="login_link_forgot_password">Forgot password?</string>
+    <string name="login_error_invalid_credentials">Invalid email or password</string>
+    <string name="login_to_signup_prompt">Don\'t have an account? Sign up</string>
+
+    <!-- Forgot Password (spec 7.6) -->
+    <string name="forgot_email_title">Forgot Password</string>
+    <string name="forgot_email_subtitle">Enter your registered email address to receive an OTP.</string>
+    <string name="forgot_email_btn_send">Send OTP</string>
+    <string name="forgot_otp_title">Verify OTP</string>
+    <string name="forgot_otp_subtitle">Enter the 6-digit verification code sent to your email.</string>
+    <string name="forgot_otp_field_label">6-digit OTP</string>
+    <string name="forgot_otp_btn_verify">Verify</string>
+    <string name="forgot_otp_resend_countdown">Resend OTP in %1$ds</string>
+    <string name="forgot_otp_resend_button">Resend OTP</string>
+    <string name="forgot_otp_error_incorrect">Incorrect OTP</string>
+    <string name="forgot_new_password_title">Reset Password</string>
+    <string name="forgot_new_password_subtitle">Enter your new password below.</string>
+    <string name="forgot_new_password_label">New Password</string>
+    <string name="forgot_new_password_confirm_label">Confirm New Password</string>
+    <string name="forgot_new_password_btn_submit">Update Password</string>
+    <string name="forgot_password_updated_success">Password updated</string>
+
+    <!-- Add Child (spec 7.7) -->
+    <string name="add_child_title">Add Child</string>
+    <string name="add_child_subtitle">Set up your child\'s learning profile and consents.</string>
+    <string name="add_child_field_name">Child\'s Name</string>
+    <string name="add_child_field_grade">Grade / Class</string>
+    <string name="add_child_field_board">Curriculum / Board</string>
+    <string name="add_child_consent_section_title">Parental Consents</string>
+    <string name="add_child_consent_section_desc">All consents must be explicitly reviewed before continuing.</string>
+    <string name="add_child_consent_voice_desc">Enables ROAVAI to listen and speak during interactive lessons.</string>
+    <string name="add_child_consent_expression_desc">Detects emotion and engagement cues to adjust tutoring pace.</string>
+    <string name="add_child_consent_reasoning_desc">Stores AI tutor explanation steps for parent review.</string>
+    <string name="add_child_consent_training_desc">Helps improve educational AI models using anonymized data.</string>
+    <string name="add_child_btn_continue">Continue</string>
 </resources>
