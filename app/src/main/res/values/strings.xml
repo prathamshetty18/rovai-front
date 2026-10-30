@@ -100,6 +100,9 @@
     <string name="goals_field_date">Target Date</string>
     <string name="goals_field_time">Target Time (Optional)</string>
     <string name="goals_save">Save Goal</string>
+    <string name="goals_date_today">Today</string>
+    <string name="goals_date_tomorrow">Tomorrow</string>
+    <string name="goals_date_two_days">+2 Days</string>
     <string name="goals_error_title_empty">Please enter an activity name</string>
     <string name="goals_error_past_date">Date cannot be in the past</string>
     <string name="goals_delete_title">Delete Goal</string>
@@ -134,12 +137,14 @@
     <string name="robot_connect_button">Connect robot</string>
     <string name="robot_setup_screen_title">Robot Setup</string>
     <string name="robot_setup_instruction">Enter the 8-character pairing code displayed on the robot\'s screen.</string>
+    <string name="robot_setup_code_label">Pairing Code</string>
     <string name="robot_setup_code_hint">e.g., WINI2026</string>
     <string name="robot_setup_pair_button">Pair Robot</string>
     <string name="robot_setup_success_message">Robot connected successfully!</string>
     <string name="robot_setup_error_expired">This code has expired. Restart your robot to get a new one.</string>
     <string name="robot_setup_error_used">This code has already been used.</string>
     <string name="robot_setup_error_not_found">Code not found. Check the code on your robot.</string>
+    <string name="robot_setup_error_offline">No network connection. Please check your internet.</string>
 
     <!-- Profile tab (spec 7.16) -->
     <string name="profile_screen_title">Profile</string>

@@ -4,10 +4,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Download
-import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -266,7 +266,7 @@ fun ProfileSuccessBody(
                 ProfileInfoRow(label = stringResource(id = R.string.profile_label_board), value = data.child.curriculum)
                 ProfileInfoRow(
                     label = stringResource(id = R.string.profile_label_daily_goal),
-                    value = "${data.child.dailyGoalMinutes} minutes"
+                    value = stringResource(id = R.string.goals_daily_minutes_format, data.child.dailyGoalMinutes)
                 )
             }
         }
@@ -365,7 +365,7 @@ fun ProfileSuccessBody(
                         .fillMaxWidth()
                         .defaultMinSize(minHeight = 48.dp)
                 ) {
-                    Icon(imageVector = Icons.Default.Logout, contentDescription = null, modifier = Modifier.size(18.dp))
+                    Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = null, modifier = Modifier.size(18.dp))
                     Spacer(modifier = Modifier.width(8.dp))
                     Text(text = stringResource(id = R.string.profile_logout_button))
                 }

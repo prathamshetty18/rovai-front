@@ -410,7 +410,7 @@ fun GoalFormDialog(
                         trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expandedSubjectDropdown) },
                         modifier = Modifier
                             .fillMaxWidth()
-                            .menuAnchor()
+                            .menuAnchor(MenuAnchorType.PrimaryNotEditable, true)
                     )
                     ExposedDropdownMenu(
                         expanded = expandedSubjectDropdown,
@@ -449,19 +449,19 @@ fun GoalFormDialog(
                     FilterChip(
                         selected = daysOffset == 0,
                         onClick = { daysOffset = 0 },
-                        label = { Text("Today") },
+                        label = { Text(text = stringResource(id = R.string.goals_date_today)) },
                         modifier = Modifier.defaultMinSize(minHeight = 48.dp)
                     )
                     FilterChip(
                         selected = daysOffset == 1,
                         onClick = { daysOffset = 1 },
-                        label = { Text("Tomorrow") },
+                        label = { Text(text = stringResource(id = R.string.goals_date_tomorrow)) },
                         modifier = Modifier.defaultMinSize(minHeight = 48.dp)
                     )
                     FilterChip(
                         selected = daysOffset == 2,
                         onClick = { daysOffset = 2 },
-                        label = { Text("+2 Days") },
+                        label = { Text(text = stringResource(id = R.string.goals_date_two_days)) },
                         modifier = Modifier.defaultMinSize(minHeight = 48.dp)
                     )
                 }
@@ -506,15 +506,18 @@ fun GoalFormDialog(
             }
         },
         confirmButton = {
+            val emptyTitleError = stringResource(id = R.string.goals_error_title_empty)
+            val pastDateError = stringResource(id = R.string.goals_error_past_date)
+
             Button(
                 onClick = {
                     if (title.isBlank()) {
-                        errorMessage = "Please enter an activity name"
+                        errorMessage = emptyTitleError
                         return@Button
                     }
                     val targetDate = LocalDate.now().plusDays(daysOffset.toLong())
                     if (targetDate.isBefore(LocalDate.now())) {
-                        errorMessage = "Date cannot be in the past"
+                        errorMessage = pastDateError
                         return@Button
                     }
                     val targetTime = LocalTime.of(hour, minute)

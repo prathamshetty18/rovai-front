@@ -7,6 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.roavai.parent.R
 import com.roavai.parent.core.util.AppResult
@@ -42,13 +43,19 @@ fun RobotSetupScreen(
                 style = MaterialTheme.typography.bodyLarge
             )
 
+            val successStr = stringResource(id = R.string.robot_setup_success_message)
+            val expiredStr = stringResource(id = R.string.robot_setup_error_expired)
+            val usedStr = stringResource(id = R.string.robot_setup_error_used)
+            val notFoundStr = stringResource(id = R.string.robot_setup_error_not_found)
+            val offlineStr = stringResource(id = R.string.robot_setup_error_offline)
+
             OutlinedTextField(
                 value = code,
                 onValueChange = {
                     code = it.uppercase()
                     errorMessage = null
                 },
-                label = { Text(text = "Pairing Code") },
+                label = { Text(text = stringResource(id = R.string.robot_setup_code_label)) },
                 placeholder = { Text(text = stringResource(id = R.string.robot_setup_code_hint)) },
                 modifier = Modifier.fillMaxWidth()
             )
@@ -77,18 +84,18 @@ fun RobotSetupScreen(
                     viewModel.pair(code) { result ->
                         when (result) {
                             is AppResult.Success -> {
-                                successMessage = "Robot connected successfully!"
+                                successMessage = successStr
                                 onNavigateBack()
                             }
                             is AppResult.Failure -> {
                                 errorMessage = when (code) {
-                                    "EXPIRED1" -> "This code has expired. Restart your robot to get a new one."
-                                    "USED0001" -> "This code has already been used."
-                                    else -> "Code not found. Check the code on your robot."
+                                    "EXPIRED1" -> expiredStr
+                                    "USED0001" -> usedStr
+                                    else -> notFoundStr
                                 }
                             }
                             is AppResult.NoConnection -> {
-                                errorMessage = "No network connection. Please check your internet."
+                                errorMessage = offlineStr
                             }
                         }
                     }
@@ -102,3 +109,37 @@ fun RobotSetupScreen(
         }
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun RobotSetupScreenPreview() {
+    com.roavai.parent.ui.theme.RoavaiTheme {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(24.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = stringResource(id = R.string.robot_setup_instruction),
+                style = MaterialTheme.typography.bodyLarge
+            )
+            OutlinedTextField(
+                value = "WINI2026",
+                onValueChange = {},
+                label = { Text(text = stringResource(id = R.string.robot_setup_code_label)) },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Button(
+                onClick = {},
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .defaultMinSize(minHeight = 48.dp)
+            ) {
+                Text(text = stringResource(id = R.string.robot_setup_pair_button))
+            }
+        }
+    }
+}
+
