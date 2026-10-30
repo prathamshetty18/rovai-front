@@ -82,7 +82,7 @@ fun ProgressComparisonsScreen(
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Text(
-                            text = "Metric",
+                            text = stringResource(id = R.string.progress_comparisons_metric),
                             style = MaterialTheme.typography.labelMedium,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.weight(2f)

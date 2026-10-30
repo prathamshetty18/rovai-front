@@ -63,6 +63,8 @@ class ProgressViewModel @Inject constructor(
         loadProgressData()
     }
 
+    private var lastSuccessfulData: ProgressHubUiData? = null
+
     private fun loadProgressData() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
@@ -82,7 +84,7 @@ class ProgressViewModel @Inject constructor(
             val creditsResult = progressRepository.credits()
 
             if (overallResult is AppResult.NoConnection || learningTimeResult is AppResult.NoConnection) {
-                _uiState.value = UiState.Offline()
+                _uiState.value = UiState.Offline(cached = lastSuccessfulData)
                 return@launch
             }
 
@@ -112,19 +114,19 @@ class ProgressViewModel @Inject constructor(
             if (overall.percent == 0 && learningTime.totalMinutes == 0 && subjects.isEmpty()) {
                 _uiState.value = UiState.Empty
             } else {
-                _uiState.value = UiState.Success(
-                    ProgressHubUiData(
-                        child = child,
-                        selectedPeriod = selectedPeriod,
-                        overall = overall,
-                        learningTime = learningTime,
-                        subjects = subjects,
-                        topics = topics,
-                        tests = tests,
-                        comparisons = comparisons,
-                        credits = credits
-                    )
+                val data = ProgressHubUiData(
+                    child = child,
+                    selectedPeriod = selectedPeriod,
+                    overall = overall,
+                    learningTime = learningTime,
+                    subjects = subjects,
+                    topics = topics,
+                    tests = tests,
+                    comparisons = comparisons,
+                    credits = credits
                 )
+                lastSuccessfulData = data
+                _uiState.value = UiState.Success(data)
             }
         }
     }

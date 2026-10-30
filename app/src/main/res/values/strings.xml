@@ -181,6 +181,10 @@
     <string name="activity_filter_this_month">This Month</string>
     <string name="activity_filter_all_time">All Time</string>
     <string name="activity_filter_all_subjects">All Subjects</string>
+    <string name="subject_mathematics">Mathematics</string>
+    <string name="subject_science">Science</string>
+    <string name="subject_social_science">Social Science</string>
+    <string name="subject_english">English</string>
     <string name="activity_group_today">Today</string>
     <string name="activity_group_yesterday">Yesterday</string>
     <string name="activity_empty_title">No activities yet</string>
@@ -235,6 +239,7 @@
     <string name="progress_tests_breakdown_format">%1$d correct, %2$d incorrect</string>
 
     <string name="progress_comparisons_title">Comparisons</string>
+    <string name="progress_comparisons_metric">Metric</string>
     <string name="progress_comparisons_current">Current</string>
     <string name="progress_comparisons_previous">Previous</string>
     <string name="progress_comparisons_change">Change</string>

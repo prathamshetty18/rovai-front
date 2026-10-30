@@ -30,6 +30,8 @@ class ProgressOverallViewModel @Inject constructor(
     var selectedPeriod = Period.THIS_WEEK
         private set
 
+    private var lastSuccessfulData: OverallProgress? = null
+
     init {
         viewModelScope.launch {
             demoSettings.state.collect { loadData() }
@@ -51,10 +53,13 @@ class ProgressOverallViewModel @Inject constructor(
             when (val res = progressRepository.overall(selectedPeriod)) {
                 is AppResult.Success -> {
                     if (res.data.percent == 0 && res.data.completedActivities == 0) _uiState.value = UiState.Empty
-                    else _uiState.value = UiState.Success(res.data)
+                    else {
+                        lastSuccessfulData = res.data
+                        _uiState.value = UiState.Success(res.data)
+                    }
                 }
                 is AppResult.Failure -> _uiState.value = UiState.Error(res.message)
-                is AppResult.NoConnection -> _uiState.value = UiState.Offline()
+                is AppResult.NoConnection -> _uiState.value = UiState.Offline(cached = lastSuccessfulData)
             }
         }
     }
@@ -73,6 +78,8 @@ class ProgressLearningTimeViewModel @Inject constructor(
 
     var selectedPeriod = Period.THIS_WEEK
         private set
+
+    private var lastSuccessfulData: LearningTime? = null
 
     init {
         viewModelScope.launch {
@@ -95,10 +102,13 @@ class ProgressLearningTimeViewModel @Inject constructor(
             when (val res = progressRepository.learningTime(selectedPeriod)) {
                 is AppResult.Success -> {
                     if (res.data.totalMinutes == 0 && res.data.perDay.isEmpty()) _uiState.value = UiState.Empty
-                    else _uiState.value = UiState.Success(res.data)
+                    else {
+                        lastSuccessfulData = res.data
+                        _uiState.value = UiState.Success(res.data)
+                    }
                 }
                 is AppResult.Failure -> _uiState.value = UiState.Error(res.message)
-                is AppResult.NoConnection -> _uiState.value = UiState.Offline()
+                is AppResult.NoConnection -> _uiState.value = UiState.Offline(cached = lastSuccessfulData)
             }
         }
     }
@@ -115,6 +125,8 @@ class ProgressSubjectsViewModel @Inject constructor(
     val uiState: StateFlow<UiState<List<SubjectProgress>>> = _uiState.asStateFlow()
     val unreadCount: StateFlow<Int> = notificationsRepository.unreadCountFlow
 
+    private var lastSuccessfulData: List<SubjectProgress>? = null
+
     init {
         viewModelScope.launch {
             demoSettings.state.collect { loadData() }
@@ -129,10 +141,13 @@ class ProgressSubjectsViewModel @Inject constructor(
             when (val res = progressRepository.subjects(Period.THIS_WEEK)) {
                 is AppResult.Success -> {
                     if (res.data.isEmpty()) _uiState.value = UiState.Empty
-                    else _uiState.value = UiState.Success(res.data)
+                    else {
+                        lastSuccessfulData = res.data
+                        _uiState.value = UiState.Success(res.data)
+                    }
                 }
                 is AppResult.Failure -> _uiState.value = UiState.Error(res.message)
-                is AppResult.NoConnection -> _uiState.value = UiState.Offline()
+                is AppResult.NoConnection -> _uiState.value = UiState.Offline(cached = lastSuccessfulData)
             }
         }
     }
@@ -151,6 +166,8 @@ class ProgressSubjectDetailViewModel @Inject constructor(
     val uiState: StateFlow<UiState<List<TopicMastery>>> = _uiState.asStateFlow()
     val unreadCount: StateFlow<Int> = notificationsRepository.unreadCountFlow
 
+    private var lastSuccessfulData: List<TopicMastery>? = null
+
     init {
         viewModelScope.launch {
             demoSettings.state.collect { loadData() }
@@ -165,10 +182,13 @@ class ProgressSubjectDetailViewModel @Inject constructor(
             when (val res = progressRepository.subjectTopics(subject)) {
                 is AppResult.Success -> {
                     if (res.data.isEmpty()) _uiState.value = UiState.Empty
-                    else _uiState.value = UiState.Success(res.data)
+                    else {
+                        lastSuccessfulData = res.data
+                        _uiState.value = UiState.Success(res.data)
+                    }
                 }
                 is AppResult.Failure -> _uiState.value = UiState.Error(res.message)
-                is AppResult.NoConnection -> _uiState.value = UiState.Offline()
+                is AppResult.NoConnection -> _uiState.value = UiState.Offline(cached = lastSuccessfulData)
             }
         }
     }
@@ -187,6 +207,8 @@ class ProgressTopicsViewModel @Inject constructor(
 
     var selectedSubject: String? = null
         private set
+
+    private var lastSuccessfulData: List<TopicMastery>? = null
 
     init {
         viewModelScope.launch {
@@ -209,10 +231,13 @@ class ProgressTopicsViewModel @Inject constructor(
             when (val res = progressRepository.topics(selectedSubject)) {
                 is AppResult.Success -> {
                     if (res.data.isEmpty()) _uiState.value = UiState.Empty
-                    else _uiState.value = UiState.Success(res.data)
+                    else {
+                        lastSuccessfulData = res.data
+                        _uiState.value = UiState.Success(res.data)
+                    }
                 }
                 is AppResult.Failure -> _uiState.value = UiState.Error(res.message)
-                is AppResult.NoConnection -> _uiState.value = UiState.Offline()
+                is AppResult.NoConnection -> _uiState.value = UiState.Offline(cached = lastSuccessfulData)
             }
         }
     }
@@ -231,6 +256,8 @@ class ProgressTestsViewModel @Inject constructor(
 
     var selectedPeriod = Period.THIS_WEEK
         private set
+
+    private var lastSuccessfulData: List<TestResult>? = null
 
     init {
         viewModelScope.launch {
@@ -253,10 +280,13 @@ class ProgressTestsViewModel @Inject constructor(
             when (val res = progressRepository.tests(selectedPeriod)) {
                 is AppResult.Success -> {
                     if (res.data.isEmpty()) _uiState.value = UiState.Empty
-                    else _uiState.value = UiState.Success(res.data)
+                    else {
+                        lastSuccessfulData = res.data
+                        _uiState.value = UiState.Success(res.data)
+                    }
                 }
                 is AppResult.Failure -> _uiState.value = UiState.Error(res.message)
-                is AppResult.NoConnection -> _uiState.value = UiState.Offline()
+                is AppResult.NoConnection -> _uiState.value = UiState.Offline(cached = lastSuccessfulData)
             }
         }
     }
@@ -275,6 +305,8 @@ class ProgressComparisonsViewModel @Inject constructor(
 
     var selectedPeriod = Period.THIS_WEEK
         private set
+
+    private var lastSuccessfulData: Comparisons? = null
 
     init {
         viewModelScope.launch {
@@ -300,11 +332,12 @@ class ProgressComparisonsViewModel @Inject constructor(
                     if (comp.learningTime.current.isEmpty() && comp.overallProgress.current.isEmpty()) {
                         _uiState.value = UiState.Empty
                     } else {
+                        lastSuccessfulData = comp
                         _uiState.value = UiState.Success(comp)
                     }
                 }
                 is AppResult.Failure -> _uiState.value = UiState.Error(res.message)
-                is AppResult.NoConnection -> _uiState.value = UiState.Offline()
+                is AppResult.NoConnection -> _uiState.value = UiState.Offline(cached = lastSuccessfulData)
             }
         }
     }
@@ -326,6 +359,8 @@ class ProgressCreditsViewModel @Inject constructor(
     val uiState: StateFlow<UiState<CreditsUiData>> = _uiState.asStateFlow()
     val unreadCount: StateFlow<Int> = notificationsRepository.unreadCountFlow
 
+    private var lastSuccessfulData: CreditsUiData? = null
+
     init {
         viewModelScope.launch {
             demoSettings.state.collect { loadData() }
@@ -341,7 +376,7 @@ class ProgressCreditsViewModel @Inject constructor(
             val historyRes = progressRepository.creditHistory()
 
             if (summaryRes is AppResult.NoConnection || historyRes is AppResult.NoConnection) {
-                _uiState.value = UiState.Offline()
+                _uiState.value = UiState.Offline(cached = lastSuccessfulData)
                 return@launch
             }
             if (summaryRes is AppResult.Failure) {
@@ -355,7 +390,9 @@ class ProgressCreditsViewModel @Inject constructor(
             if (total == 0 && history.isEmpty()) {
                 _uiState.value = UiState.Empty
             } else {
-                _uiState.value = UiState.Success(CreditsUiData(total, history))
+                val data = CreditsUiData(total, history)
+                lastSuccessfulData = data
+                _uiState.value = UiState.Success(data)
             }
         }
     }

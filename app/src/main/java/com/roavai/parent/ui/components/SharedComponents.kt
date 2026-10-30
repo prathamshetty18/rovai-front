@@ -645,7 +645,10 @@ fun ErrorState(
 
 // 14. OfflineBanner
 @Composable
-fun OfflineBanner(modifier: Modifier = Modifier) {
+fun OfflineBanner(
+    modifier: Modifier = Modifier,
+    message: String = stringResource(id = R.string.common_offline_banner)
+) {
     Surface(
         modifier = modifier.fillMaxWidth(),
         color = MaterialTheme.colorScheme.errorContainer
@@ -663,7 +666,7 @@ fun OfflineBanner(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.width(12.dp))
             Text(
-                text = stringResource(id = R.string.common_offline_banner),
+                text = message,
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onErrorContainer
             )
@@ -711,6 +714,7 @@ fun <T> StateHost(
     onRetry: () -> Unit,
     modifier: Modifier = Modifier,
     emptyContent: @Composable () -> Unit = { EmptyState() },
+    offlineMessage: String? = null,
     content: @Composable (T) -> Unit
 ) {
     Box(modifier = modifier.fillMaxSize()) {
@@ -720,7 +724,11 @@ fun <T> StateHost(
             is UiState.Error -> ErrorState(onRetry = onRetry)
             is UiState.Offline -> {
                 Column {
-                    OfflineBanner()
+                    if (offlineMessage != null) {
+                        OfflineBanner(message = offlineMessage)
+                    } else {
+                        OfflineBanner()
+                    }
                     @Suppress("UNCHECKED_CAST")
                     val cachedData = state.cached as? T
                     if (cachedData != null) {

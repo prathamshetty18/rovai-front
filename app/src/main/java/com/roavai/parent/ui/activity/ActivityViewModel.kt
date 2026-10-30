@@ -43,6 +43,8 @@ class ActivityViewModel @Inject constructor(
     private var currentPeriod = ActivityPeriod.THIS_WEEK
     private var currentSubject: String? = null
 
+    private var lastSuccessfulData: ActivityUiData? = null
+
     init {
         viewModelScope.launch {
             demoSettings.state.collect {
@@ -90,21 +92,21 @@ class ActivityViewModel @Inject constructor(
                             it.startedAt.atZone(ZoneId.systemDefault()).toLocalDate()
                         }.toSortedMap(compareByDescending { it })
 
-                        _uiState.value = UiState.Success(
-                            ActivityUiData(
-                                child = child,
-                                selectedPeriod = currentPeriod,
-                                selectedSubject = currentSubject,
-                                groupedActivities = grouped
-                            )
+                        val data = ActivityUiData(
+                            child = child,
+                            selectedPeriod = currentPeriod,
+                            selectedSubject = currentSubject,
+                            groupedActivities = grouped
                         )
+                        lastSuccessfulData = data
+                        _uiState.value = UiState.Success(data)
                     }
                 }
                 is AppResult.Failure -> {
                     _uiState.value = UiState.Error(result.message)
                 }
                 is AppResult.NoConnection -> {
-                    _uiState.value = UiState.Offline()
+                    _uiState.value = UiState.Offline(cached = lastSuccessfulData)
                 }
             }
         }

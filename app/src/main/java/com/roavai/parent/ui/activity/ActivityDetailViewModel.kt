@@ -43,6 +43,8 @@ class ActivityDetailViewModel @Inject constructor(
         loadActivity()
     }
 
+    private var lastSuccessfulData: Activity? = null
+
     private fun loadActivity() {
         viewModelScope.launch {
             _uiState.value = UiState.Loading
@@ -52,6 +54,7 @@ class ActivityDetailViewModel @Inject constructor(
                     if (activity == null) {
                         _uiState.value = UiState.Empty
                     } else {
+                        lastSuccessfulData = activity
                         _uiState.value = UiState.Success(activity)
                     }
                 }
@@ -59,7 +62,7 @@ class ActivityDetailViewModel @Inject constructor(
                     _uiState.value = UiState.Error(result.message)
                 }
                 is AppResult.NoConnection -> {
-                    _uiState.value = UiState.Offline()
+                    _uiState.value = UiState.Offline(cached = lastSuccessfulData)
                 }
             }
         }

@@ -96,6 +96,7 @@ fun ActivityScreenContent(
                     message = stringResource(id = R.string.activity_empty_message)
                 )
             },
+            offlineMessage = stringResource(id = R.string.activity_offline_message),
             modifier = Modifier.padding(innerPadding)
         ) { data ->
             ActivityContentBody(
@@ -125,10 +126,10 @@ fun ActivityContentBody(
 
     val subjects = listOf(
         null to stringResource(id = R.string.activity_filter_all_subjects),
-        "Mathematics" to "Mathematics",
-        "Science" to "Science",
-        "Social Science" to "Social Science",
-        "English" to "English"
+        "Mathematics" to stringResource(id = R.string.subject_mathematics),
+        "Science" to stringResource(id = R.string.subject_science),
+        "Social Science" to stringResource(id = R.string.subject_social_science),
+        "English" to stringResource(id = R.string.subject_english)
     )
 
     val todayDate = LocalDate.now()
